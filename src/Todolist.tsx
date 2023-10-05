@@ -9,10 +9,11 @@ type TaskType = {
 }
 
 type PropsType = {
+    id: string,
     title: string,
     tasks: Array<TaskType>,
     removeTask: (taskId: string)=> void,
-    changeFilter: (value: FilterValuesType)=> void,
+    changeFilter: (value: FilterValuesType, todolistsId: string)=> void,
     addTask: (title: string)=>void,
     changeStatus: (taskId: string, isDone: boolean) => void,
     filter: FilterValuesType
@@ -47,17 +48,11 @@ const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
     }
 };
 
-const onAllClickHandler = ()=> {
-    {props.changeFilter('all')}
-};
+const onAllClickHandler = ()=> props.changeFilter('all', props.id);
 
-const onCompletedClickHandler = ()=> {
-    {props.changeFilter('completed')}
-};
+const onCompletedClickHandler = ()=> props.changeFilter('completed', props.id);
 
-const onActiveClickHandler = ()=> {
-    {props.changeFilter('active')}
-};
+const onActiveClickHandler = ()=> props.changeFilter('active', props.id);
 
 
 
