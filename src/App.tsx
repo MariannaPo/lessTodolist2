@@ -54,15 +54,32 @@ function App() {
         {id: v1(), title: 'What to buy?', filter:'completed'}
     ]);
 
+    let todolistId1 = v1();
+    let todolistId2 = v1();
+
+    let [allTasks, setAllTasks] = useState({
+        [todolistId1]: [
+         { id: v1(), title: "HTML&CSS", isDone: true },
+        { id: v1(), title: "JS", isDone: true },
+        { id: v1(), title: "ReactJS", isDone: false },
+        { id: v1(), title: 'Rest API', isDone: false},
+        { id: v1(), title: 'GraphQL', isDone: false}
+        ],
+        [todolistId2]: [
+        { id: v1(), title: 'RedBull', isDone: false},
+        { id: v1(), title: 'sigarets', isDone: true}
+        ]
+    })
+
     return (
         <div className="App">
             { todolists.map((tl)=>{
-                let tasksForTodoList = tasks;
+                let tasksForTodoList = allTasks[tl.id];
                 if (tl.filter === 'active'){
-                    tasksForTodoList = tasks.filter(task => task.isDone === false)
+                    tasksForTodoList = tasksForTodoList.filter(task => task.isDone === false)
                 }
                 if (tl.filter === 'completed') {
-                    tasksForTodoList = tasks.filter(task => task.isDone === true)
+                    tasksForTodoList = tasksForTodoList.filter(task => task.isDone === true)
                 }
                 return <Todolist 
             key={tl.id}
