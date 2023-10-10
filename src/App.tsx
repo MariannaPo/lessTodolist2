@@ -21,15 +21,18 @@ function App() {
         { id: v1(), title: 'GraphQL', isDone: false}
     ])
 
-      function removeTask(id:string){
+      function removeTask(id:string, todolistsId: string){
+        let tasks = allTasks[todolistsId];
        let  filteredTasks = tasks.filter(task=> task.id !== id)
-        setTasks(filteredTasks)
+        allTasks[todolistsId] = filteredTasks;
+       setAllTasks({...allTasks})
     }
 
-    function addTask(title: string) {
+    function addTask(title: string, todolistsId: string) {
         let newTask = {id: v1(), title: title, isDone: false};
+        let tasks = allTasks[todolistsId];
         let newTasks = [newTask, ...tasks];
-        setTasks(newTasks)
+        setAllTasks({...addTask})
     }
 
     function changeFilter(value: FilterValuesType, todolistsId: string){
@@ -88,7 +91,7 @@ function App() {
             tasks={tasksForTodoList} 
             removeTask={removeTask} 
             changeFilter={changeFilter}
-            addTask={addTask}
+            addTasks={addTask}
             changeStatus={changeStatus}
             filter = {tl.filter}
             />
