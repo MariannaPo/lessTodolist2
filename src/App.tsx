@@ -21,19 +21,6 @@ function App() {
         { id: v1(), title: 'GraphQL', isDone: false}
     ])
 
-      function removeTask(id:string, todolistsId: string){
-        let tasks = allTasks[todolistsId];
-       let  filteredTasks = tasks.filter(task=> task.id !== id)
-        allTasks[todolistsId] = filteredTasks;
-       setAllTasks({...allTasks})
-    }
-
-    function addTask(title: string, todolistsId: string) {
-        let newTask = {id: v1(), title: title, isDone: false};
-        let tasks = allTasks[todolistsId];
-        let newTasks = [newTask, ...tasks];
-        setAllTasks({...addTask})
-    }
 
     function changeFilter(value: FilterValuesType, todolistsId: string){
     let todolist = todolists.find(tl => tl.id === todolistsId);
@@ -41,15 +28,6 @@ function App() {
         todolist.filter = value;
         setTodolists([...todolists])
     }
-    }
-
-    function changeStatus(taskId: string, isDone: boolean){
-       let task = tasks.find(t => t.id === taskId); 
-        if(task){
-        task.isDone = !task.isDone
-        }
-        setTasks([...tasks])
-       
     }
 
        let [todolists, setTodolists]= useState<Array<TodolistsType>>([
@@ -73,6 +51,29 @@ function App() {
         { id: v1(), title: 'sigarets', isDone: true}
         ]
     })
+
+    function removeTask(id:string, todolistsId: string){
+        let tasks = allTasks[todolistsId];
+       let  filteredTasks = tasks.filter(task=> task.id != id)
+        allTasks[todolistsId] = filteredTasks;
+       setAllTasks({...allTasks})
+    }
+
+    function addTask(title: string, todolistsId: string) {
+        let newTask = {id: v1(), title: title, isDone: false};
+        let tasks = allTasks[todolistsId];
+        let newTasks = [newTask, ...tasks];
+        setAllTasks({...allTasks})
+    }
+    function changeStatus(taskId: string, isDone: boolean, todolistsId: string){
+        let tasks = allTasks[todolistsId]
+         let task = tasks.find(t => t.id === taskId); 
+         if(task){
+         task.isDone = isDone
+         setTasks({...tasks})
+         }   
+     }
+
 
     return (
         <div className="App">

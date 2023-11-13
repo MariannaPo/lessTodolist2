@@ -1,5 +1,6 @@
 import React, {ChangeEvent, KeyboardEvent, useState } from 'react';
 import { FilterValuesType } from './App';
+import { title } from 'process';
 
 
 type TaskType = {
@@ -12,10 +13,10 @@ type PropsType = {
     id: string,
     title: string,
     tasks: Array<TaskType>,
-    removeTask: (taskId: string)=> void,
+    removeTask: (id:string, todolistsId: string)=> void,
     changeFilter: (value: FilterValuesType, todolistsId: string)=> void,
-    addTask: (title: string)=>void,
-    changeStatus: (taskId: string, isDone: boolean) => void,
+    addTask: (title: string, todolistsId: string)=>void,
+    changeStatus: (taskId: string, isDone: boolean, todolistsId: string) => void,
     filter: FilterValuesType
 }
 
@@ -32,7 +33,7 @@ const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
 
 const addTaskButton=()=> {
     if(newTaskTitle.trim() !== ''){
-        props.addTask(newTaskTitle);
+        props.addTask(title.trim(), props.id);
     setNewTaskTitle('');
     } else {
      setError('Required field');
