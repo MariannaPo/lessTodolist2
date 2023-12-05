@@ -4,7 +4,9 @@ import {Todolist} from './Todolist';
 import {v1} from 'uuid';
 
 export type todolistsType = {
-
+    id: string,
+    title: string,
+    filter: FilterValuesType
 }
 export type FilterValuesType = "all" | "active" | "completed";
 
@@ -67,14 +69,14 @@ function App() {
     }
 
 
-    let tasksForTodolist = tasks;
-
-    if (filter === "active") {
-        tasksForTodolist = tasks.filter(t => t.isDone === false);
-    }
-    if (filter === "completed") {
-        tasksForTodolist = tasks.filter(t => t.isDone === true);
-    }
+    // let tasksForTodolist = tasks;
+    //
+    // if (filter === "active") {
+    //     tasksForTodolist = tasks.filter(t => t.isDone === false);
+    // }
+    // if (filter === "completed") {
+    //     tasksForTodolist = tasks.filter(t => t.isDone === true);
+    // }
 
     function changeFilter(value: FilterValuesType) {
         setFilter(value);
@@ -83,14 +85,26 @@ function App() {
 
     return (
         <div className="App">
-            <Todolist title="What to learn"
-                      tasks={tasksForTodolist}
-                      removeTask={removeTask}
-                      changeFilter={changeFilter}
-                      addTask={addTask}
-                      changeTaskStatus={changeStatus}
-                      filter={filter}
-            />
+
+            {todolists.map((t) => {
+                let tasksForTodolist = tasks[t.id];
+
+                if (t.filter === "active") {
+                    tasksForTodolist = tasks[t.id].filter(t => t.isDone === false);
+                }
+                if (t.filter === "completed") {
+                    tasksForTodolist = tasks[t.id].filter(t => t.isDone === true);
+                }
+                return (
+                    <Todolist title={t.title}
+                              tasks={tasksForTodolist}
+                              removeTask={removeTask}
+                              changeFilter={changeFilter}
+                              addTask={addTask}
+                              changeTaskStatus={changeStatus}
+                              filter={t.filter}/>
+                )
+            })}
         </div>
     );
 }
