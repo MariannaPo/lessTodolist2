@@ -43,13 +43,9 @@ function App() {
     }
 
     function addTask( title: string, todolistID: string) {
-        let task = {id: v1(), title: title, isDone: false}
-        let todolistTasks = tasks[todolistID]
-        tasks[todolistID] =[task, ...todolistTasks]
-        setTasks({...tasks})
 
-        // let newTask = {id: v1(), title: title, isDone: false};
-        // setTasks({...tasks, [todolistID] :  [newTask, ...tasks[todolistID]]})
+        let newTask = {id: v1(), title: title, isDone: false};
+        setTasks({...tasks, [todolistID] :  [newTask, ...tasks[todolistID]]})
     }
 
     function changeStatus(todolistID: string, taskId: string, isDone: boolean) {
