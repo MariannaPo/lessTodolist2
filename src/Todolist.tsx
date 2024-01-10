@@ -1,4 +1,4 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
+import React, {ChangeEvent, KeyboardEvent, MouseEventHandler, useState} from 'react';
 import {FilterValuesType, todolistsType} from './App';
 import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
@@ -13,7 +13,7 @@ type PropsType = {
     title: string
     tasks: Array<TaskType>
     removeTask: (todolistID: string,taskId: string) => void
-
+    removeTodoList: (todolistID: string,taskId: string)=>void
     changeFilter: ( todolistID: string, value: FilterValuesType) => void
     addTask: (todolistID: string, title: string) => void
     changeTaskStatus: (todolistID: string, taskId: string, isDone: boolean) => void
@@ -32,8 +32,11 @@ export function Todolist(props: PropsType) {
     const addTask = (title: string) => {
         props.addTask(title, props.todolistID)
     }
-     const changeTodoListTitle = (id: string, title: string) => {
-        props.changeTodoListTitle(props.id, title)
+    // const removeTodoList = (todolistID: string, id: string) => {
+    //        props.removeTask(props.todolistID, id)
+    //     }
+    const changeTodoListTitle= (title: string) => {
+        props.changeTodoListTitle(props.todolistID, title)
     }
 
     return <div>

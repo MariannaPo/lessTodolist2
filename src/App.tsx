@@ -49,7 +49,13 @@ function App() {
     }
 
     function changeStatus(todolistID: string, taskId: string, isDone: boolean) {
-            setTasks({...tasks,[todolistID] : tasks[todolistID].map((m)=>m.id === taskId ? {...m,isDone} : m)})
+        let todolistTask = tasks[todolistID];
+        let task = todolistTask.find(t => t.id === taskId);
+        if(task){
+            task.isDone = isDone;
+            setTasks({...tasks})
+        }
+            // setTasks({...tasks,[todolistID] : tasks[todolistID].map((m)=>m.id === taskId ? {...m,isDone} : m)})
     }
 
     function changeFilter( todolistID: string, value: FilterValuesType) {
@@ -103,6 +109,7 @@ function App() {
                         title={t.title}
                               tasks={tasksForTodolist}
                               removeTask={removeTask}
+                        removeTodoList={removeTask}
                               changeFilter={changeFilter}
                               addTask={addTask}
                               changeTaskStatus={changeStatus}
